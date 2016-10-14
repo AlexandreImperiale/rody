@@ -34,11 +34,16 @@ impl RegularTimeLine {
     /// ```
     pub fn new(min: f64, max: f64, nstep: usize) -> RegularTimeLine
     {
-        let mut dt : f64 = 0.;
+        let mut dt: f64 = 0.0;
+        let mut current_time: f64 = min;
         if min < max {
-            dt = (max - min) / (nstep as f64)
+            if nstep > 0 {
+                dt = (max - min) / (nstep as f64);
+            } else {
+                current_time = max;
+            }
         }
-        RegularTimeLine{ max_time: max, time_step: dt, current_time: min }
+        RegularTimeLine{ max_time: max, time_step: dt, current_time: current_time }
     }
 }
 
@@ -61,6 +66,14 @@ impl Iterator for RegularTimeLine {
     /// use rody::timeline::*;
     ///
     /// for (i, time) in RegularTimeLine::new(1.0, 0.0, 10).enumerate() {
+    ///     assert!(false)
+    /// }
+    /// ```
+    ///
+    /// ```
+    /// use rody::timeline::*;
+    ///
+    /// for (i, time) in RegularTimeLine::new(1.0, 0.0, 0).enumerate() {
     ///     assert!(false)
     /// }
     /// ```

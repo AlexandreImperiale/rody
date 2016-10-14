@@ -9,9 +9,6 @@ fn main() {
     }
 }
 
-
-
-
 // for (i, time) in timeline.iter().enumerate()
 // {
 //      shape.move(time).write("shape_{}".format(i))
