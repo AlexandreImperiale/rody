@@ -1,15 +1,27 @@
-// extern crate mersh;
-
+extern crate mersh;
 extern crate rody;
-use rody::timeline::*;
 
-fn main() {
-    for (i, time) in RegularTimeLine::new(0., 1.0, 10).enumerate() {
-        println!("time = {} {}", i, time);
-    }
+use rody::block::*;
+
+fn forward(block: &mut Block, ts: f64)
+{
+    block.position.coords.add_in(ts, &block.velocity.coords);
 }
 
-// for (i, time) in timeline.iter().enumerate()
-// {
-//      shape.move(time).write("shape_{}".format(i))
-// }
+fn main() {
+
+    let mut block = rody::block::BlockBuilder::new()
+        .set_mass_density(1.0)
+        .set_lengths(1.0, 1.0, 1.0)
+        .set_initial_velocity(-1.0, 0.0, 0.0)
+        .get();
+
+    let tl = rody::timeline::RegularTimeLine::new(0., 0.1, 10);
+
+    for (i, time) in tl.enumerate()
+    {
+        // ======> CAN'T ACCESS TL INSIDE LOOP SINCE MOVED !!!!
+        forward(&mut block, 0.1);
+        println!("{:}", block.format("_", 3));
+    }
+}

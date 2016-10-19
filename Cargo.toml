@@ -5,4 +5,5 @@ authors = ["AlexandreImperiale <https://github.com/AlexandreImperiale>"]
 description = "A rust crate for rigid body motion."
 
 [dependencies]
-mersh = { git = "https://github.com/AlexandreImperiale/mersh" }
+# mersh = { git = "https://github.com/AlexandreImperiale/mersh", branch = "master" }
+mersh = { path = "/Users/alexandre/GitHub/mersh" }
