@@ -16,12 +16,6 @@ fn main() {
         .set_initial_velocity(-1.0, 0.0, 0.0)
         .get();
 
-    let tl = rody::timeline::RegularTimeLine::new(0., 0.1, 10);
-
-    for (i, time) in tl.enumerate()
-    {
-        // ======> CAN'T ACCESS TL INSIDE LOOP SINCE MOVED !!!!
-        forward(&mut block, 0.1);
-        println!("{:}", block.format("_", 3));
-    }
+    forward(&mut block, 0.1);
+    println!("{:}", block.format("_", 3));
 }

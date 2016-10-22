@@ -50,8 +50,8 @@ impl BlockBuilder {
     ///
     /// assert!(block.mass.abs() < 1e-12);
     /// assert!(block.get_volume().abs() < 1e-12);
-    /// assert!(block.state.position.coords.norm().abs() < 1e-12);
-    /// assert!(block.state.velocity.norm().abs() < 1e-12);
+    /// assert!(block.position.coords.norm() < 1e-12);
+    /// assert!(block.velocity.coords.norm() < 1e-12);
     /// ```
     pub fn new() -> Self
     {
@@ -122,8 +122,8 @@ impl BlockBuilder {
     /// assert!((block.lengths[0] - 1.0).abs() < 1e-12);
     /// assert!((block.lengths[1] - 0.5).abs() < 1e-12);
     /// assert!((block.lengths[2] - 0.25).abs() < 1e-12);
-    /// assert!(block.state.position.coords.norm().abs() < 1e-12);
-    /// assert!(block.state.velocity.norm().abs() < 1e-12);
+    /// assert!(block.position.coords.norm() < 1e-12);
+    /// assert!(block.velocity.coords.norm() < 1e-12);
     /// ```
     pub fn get(&mut self) -> Block
     {
@@ -188,14 +188,16 @@ impl<'a> BlockFormatter<'a> {
         let split : Vec<&str> = data_str.split_whitespace().collect();
         for s in split.iter()
         {
-            match *s {
-                "PX" | "Px" | "pX" | "px" => data_index.push(0),
-                "PY" | "Py" | "pY" | "py" => data_index.push(1),
-                "PZ" | "Pz" | "pZ" | "pz" => data_index.push(2),
-                "VX" | "Vx" | "vX" | "vx" => data_index.push(3),
-                "VY" | "Vy" | "vY" | "vy" => data_index.push(4),
-                "VZ" | "Vz" | "vZ" | "vz" => data_index.push(5),
-                "_"=> for i in 0..6 { data_index.push(i); },
+            match &*String::from(*s).to_lowercase() {
+                "_" => for i in 0..6 { data_index.push(i); },
+                "p" => for i in 0..3 { data_index.push(i); },
+                "v" => for i in 3..6 { data_index.push(i); },
+                "px" => data_index.push(0),
+                "py" => data_index.push(1),
+                "pz" => data_index.push(2),
+                "vx" => data_index.push(3),
+                "vy" => data_index.push(4),
+                "vz" => data_index.push(5),
                 _ => (),
             };
         }

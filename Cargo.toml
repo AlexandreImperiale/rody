@@ -1,9 +1,7 @@
 [package]
 name = "rody"
 version = "0.1.0"
-authors = ["AlexandreImperiale <https://github.com/AlexandreImperiale>"]
-description = "A rust crate for rigid body motion."
+authors = ["AlexandreImperiale <alexandre.imperiale@gmail.com>"]
 
 [dependencies]
-# mersh = { git = "https://github.com/AlexandreImperiale/mersh", branch = "master" }
-mersh = { path = "/Users/alexandre/GitHub/mersh" }
+mersh = { git = "https://github.com/AlexandreImperiale/mersh" }
